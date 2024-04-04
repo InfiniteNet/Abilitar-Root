@@ -1,5 +1,8 @@
 #!/bin/bash
 
+echo -e "\033[1;32m ANTES DE APLICAR ESTE SCRIPT 
+DE O COMANDO sudo -i\033[0m"; sleep 2s; passwd
+
 # reset shell colors
 tput init
 
@@ -15,7 +18,6 @@ PROJECT_ROOT="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
 # required imports
 source "${PROJECT_ROOT}"/utils/manifest.sh
 
-clear
 [[ $(grep -c "prohibit-password" /etc/ssh/sshd_config) != '0' ]] && {
 	sed -i "s/prohibit-password/yes/g" /etc/ssh/sshd_config
 } > /dev/null
@@ -36,22 +38,20 @@ clear
 } > /dev/null
 service ssh restart > /dev/null
 
-clear; echo -e "\033[1;32m PRIMEIRO DE O COMANDO sudo -i\033[0m"; sleep 2s; passwd
-
 echo "America/Sao_Paulo" > /etc/timezone
 ln -fs /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime > /dev/null 2>&1
 dpkg-reconfigure --frontend noninteractive tzdata > /dev/null 2>&1
 clear
-echo -e "\E[44;1;37m           Acesso a rede           \E[0m"
+echo -e "\E[44;1;37m           ACESSO A REDE          \E[0m"
 echo ""
 echo -e "                \033[1;31mATENCAO"
 echo ""
-echo -e "\033[1;32mSERVIÇO PARA MAQUINAS ARM"
+echo -e "\033[1;32mLIBERANDO PORTAS"
 echo ""
 echo -e "\033[1;36mINICIANDO LIBERAÇÃO"
 echo ""
 echo -e "\033[1;33mAGUARDE..."
-echo -e "\033[1;33mPRONTO PARA USO!"
 apt-get update -y > /dev/null 2>&1
 apt-get uograde -y > /dev/null 2>&1
 iptables -F && iptables -t nat -F > /dev/null 2>&1
+echo -e "\033[1;33mPRONTO PARA USO!"
