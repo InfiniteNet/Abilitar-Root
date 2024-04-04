@@ -1,7 +1,7 @@
 #!/bin/bash
 
-echo -e "\033[1;32m ANTES DE APLICAR ESTE SCRIPT 
-   DE O COMANDO sudo -i\033[0m"; sleep 2s; passwd
+echo -e "\033[1;32m ANTES DE APLICAR ESTE SCRIPT\033[0m"; sleep 2s; passwd
+echo -e "\033[1;32m DE O COMANDO sudo -i\033[0m"; sleep 2s; passwd
 
 [[ $(grep -c "prohibit-password" /etc/ssh/sshd_config) != '0' ]] && {
 	sed -i "s/prohibit-password/yes/g" /etc/ssh/sshd_config
