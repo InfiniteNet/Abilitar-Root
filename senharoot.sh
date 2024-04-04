@@ -1,22 +1,7 @@
 #!/bin/bash
 
 echo -e "\033[1;32m ANTES DE APLICAR ESTE SCRIPT 
-DE O COMANDO sudo -i\033[0m"; sleep 2s; passwd
-
-# reset shell colors
-tput init
-
-# https://stackoverflow.com/questions/59895/how-to-get-the-source-directory-of-a-bash-script-from-within-the-script-itself
-SOURCE="${BASH_SOURCE[0]}"
-while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
-  PROJECT_ROOT="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
-  SOURCE="$(readlink "$SOURCE")"
-  [[ $SOURCE != /* ]] && SOURCE="$PROJECT_ROOT/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
-done
-PROJECT_ROOT="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
-
-# required imports
-source "${PROJECT_ROOT}"/utils/manifest.sh
+   DE O COMANDO sudo -i\033[0m"; sleep 2s; passwd
 
 [[ $(grep -c "prohibit-password" /etc/ssh/sshd_config) != '0' ]] && {
 	sed -i "s/prohibit-password/yes/g" /etc/ssh/sshd_config
@@ -52,6 +37,6 @@ echo -e "\033[1;36mINICIANDO LIBERAÇÃO"
 echo ""
 echo -e "\033[1;33mAGUARDE..."
 apt-get update -y > /dev/null 2>&1
-apt-get uograde -y > /dev/null 2>&1
+apt-get upgrade -y > /dev/null 2>&1
 iptables -F && iptables -t nat -F > /dev/null 2>&1
 echo -e "\033[1;33mPRONTO PARA USO!"
