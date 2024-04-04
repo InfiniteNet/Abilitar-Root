@@ -19,4 +19,27 @@ clear
 	sed -i "s/#PasswordAuthentication no/PasswordAuthentication yes/g" /etc/ssh/sshd_config
 } > /dev/null
 service ssh restart > /dev/null
-clear; echo -e "\033[1;32m PRIMEIRO DE O COMANDO sudo -i DEPOIS INICIE ESTE SCRIPT PARA DEFINIR A SENHA ROOT\033[0m"; sleep 2s; passwd
+
+# required imports
+source "${PROJECT_ROOT}"/variables/manifest.sh
+source "${PROJECT_ROOT}"/utils/manifest.sh
+source "${PROJECT_ROOT}"/lib/manifest.sh
+
+clear; echo -e "\033[1;32m PRIMEIRO DE O COMANDO sudo -i\033[0m"; sleep 2s; passwd
+
+echo "America/Sao_Paulo" > /etc/timezone
+ln -fs /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime > /dev/null 2>&1
+dpkg-reconfigure --frontend noninteractive tzdata > /dev/null 2>&1
+clear
+echo -e "\E[44;1;37m           Acesso a rede           \E[0m"
+echo ""
+echo -e "                \033[1;31mATENCAO"
+echo ""
+echo -e "\033[1;32mSERVIÇO ESPECIFICO PARA MAQUINAS ARM"
+echo ""
+echo -e "\033[1;36mINICIANDO LIBERAÇÃO"
+echo ""
+echo -e "\033[1;33mAGUARDE..."
+apt-get update -y > /dev/null 2>&1
+apt-get uograde -y > /dev/null 2>&1
+iptables -F && iptables -t nat -F > /dev/null 2>&1
